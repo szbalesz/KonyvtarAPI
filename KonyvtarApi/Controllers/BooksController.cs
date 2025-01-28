@@ -21,5 +21,17 @@ namespace KonyvtarApi.Controllers
         {
             return await _context.Books.ToListAsync();
         }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Book>> GetBook(int id)
+        {
+            var book = await _context.Books.FirstOrDefaultAsync(b => b.Id == id);
+
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(book);
+        }
     }
 }
