@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KonyvtarApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/books")]
     [ApiController]
     public class BooksController : ControllerBase
     {
@@ -40,20 +40,39 @@ namespace KonyvtarApi.Controllers
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetBook), new { id = book.Id }, book);
         }
-        [HttpPut]
-        public async Task<ActionResult<Book>> UpdateBook(Book book)
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Book>> UpdateBook(int id,Book book)
         {
-            var existingBook = await _context.Books.FirstOrDefaultAsync(b => b.Id == book.Id);
+            var existingBook = await _context.Books.FirstOrDefaultAsync(b => b.Id == id);
             if (existingBook != null)
             {
-                existingBook.Title = book.Title;
-                existingBook.Author = book.Author;
-                existingBook.Genre = book.Genre;
-                existingBook.Price = book.Price;
-                existingBook.PublishedYear = book.PublishedYear;
-                _context.Books.Update(existingBook);
+                if (book.PublishedYear > 0 && book.PublishedYear <= DateTime.Now.Year)
+                {
+                    existingBook.PublishedYear = book.PublishedYear;
+                    existingBook.Title = book.Title;
+                    existingBook.Author = book.Author;
+                    existingBook.Genre = book.Genre;
+                    existingBook.Price = book.Price;
+                    _context.Books.Update(existingBook);
+                    await _context.SaveChangesAsync();
+                    return Ok(existingBook);
+                }
+                else
+                {
+                    return BadRequest(new { message = "A megadott kiadási év nem megfelelő!" });
+                }
+            }
+            return NotFound(new { message= "Nem található ilyen Id-val könyv!" });
+        }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteBook(int id)
+        {
+            var book = await _context.Books.FirstOrDefaultAsync(b => b.Id == id);
+            if (book != null)
+            {
+                _context.Books.Remove(book);
                 await _context.SaveChangesAsync();
-                return Ok(existingBook);
+                return Ok(new { message = "Sikeres törlés!" });
             }
             return NotFound();
         }

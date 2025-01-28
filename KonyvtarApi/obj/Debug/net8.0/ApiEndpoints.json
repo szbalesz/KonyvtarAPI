@@ -2,7 +2,7 @@
   {
     "ContainingType": "KonyvtarApi.Controllers.BooksController",
     "Method": "GetBooks",
-    "RelativePath": "api/Books",
+    "RelativePath": "api/books",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -22,7 +22,7 @@
   {
     "ContainingType": "KonyvtarApi.Controllers.BooksController",
     "Method": "AddBook",
-    "RelativePath": "api/Books",
+    "RelativePath": "api/books",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -47,34 +47,8 @@
   },
   {
     "ContainingType": "KonyvtarApi.Controllers.BooksController",
-    "Method": "UpdateBook",
-    "RelativePath": "api/Books",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "book",
-        "Type": "KonyvtarApi.Models.Book",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "KonyvtarApi.Models.Book",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "KonyvtarApi.Controllers.BooksController",
     "Method": "GetBook",
-    "RelativePath": "api/Books/{id}",
+    "RelativePath": "api/books/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -96,5 +70,52 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "KonyvtarApi.Controllers.BooksController",
+    "Method": "UpdateBook",
+    "RelativePath": "api/books/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "book",
+        "Type": "KonyvtarApi.Models.Book",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "KonyvtarApi.Models.Book",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "KonyvtarApi.Controllers.BooksController",
+    "Method": "DeleteBook",
+    "RelativePath": "api/books/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]
