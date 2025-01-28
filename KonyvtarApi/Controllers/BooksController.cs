@@ -50,7 +50,7 @@ namespace KonyvtarApi.Controllers
             var existingBook = await _context.Books.FirstOrDefaultAsync(b => b.Id == id);
             if (existingBook != null)
             {
-                if (book.PublishedYear > 0 && book.PublishedYear <= DateTime.Now.Year)
+                if (book.Author != null && book.Title != null &&  book.PublishedYear > 0 && book.PublishedYear <= DateTime.Now.Year)
                 {
                     existingBook.PublishedYear = book.PublishedYear;
                     existingBook.Title = book.Title;
