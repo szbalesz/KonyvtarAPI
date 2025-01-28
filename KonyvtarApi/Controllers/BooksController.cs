@@ -80,5 +80,15 @@ namespace KonyvtarApi.Controllers
             }
             return NotFound();
         }
+        [HttpGet("author/{author}")]
+        public async Task<ActionResult<IEnumerable<Book>>> SearchByAuthor(string author)
+        {
+            return await _context.Books.Where(b => b.Author.Contains(author)).ToListAsync();
+        }
+        [HttpGet("title/{title}")]
+        public async Task<ActionResult<IEnumerable<Book>>> SearchByTitle(string title)
+        {
+            return await _context.Books.Where(b => b.Title.Contains(title)).ToListAsync();
+        }
     }
 }
