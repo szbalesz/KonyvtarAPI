@@ -36,6 +36,10 @@ namespace KonyvtarApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Book>> AddBook(Book book)
         {
+            if (book.PublishedYear <= 0 || book.PublishedYear > DateTime.Now.Year)
+            {
+                return BadRequest(new { message = "A megadott kiadási év nem megfelelő!" });
+            }
             _context.Books.Add(book);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetBook), new { id = book.Id }, book);
