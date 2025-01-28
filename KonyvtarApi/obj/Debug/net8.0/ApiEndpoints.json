@@ -47,6 +47,32 @@
   },
   {
     "ContainingType": "KonyvtarApi.Controllers.BooksController",
+    "Method": "UpdateBook",
+    "RelativePath": "api/Books",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "book",
+        "Type": "KonyvtarApi.Models.Book",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "KonyvtarApi.Models.Book",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "KonyvtarApi.Controllers.BooksController",
     "Method": "GetBook",
     "RelativePath": "api/Books/{id}",
     "HttpMethod": "GET",

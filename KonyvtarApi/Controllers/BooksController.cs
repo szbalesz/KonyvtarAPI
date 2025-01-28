@@ -40,5 +40,22 @@ namespace KonyvtarApi.Controllers
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetBook), new { id = book.Id }, book);
         }
+        [HttpPut]
+        public async Task<ActionResult<Book>> UpdateBook(Book book)
+        {
+            var existingBook = await _context.Books.FirstOrDefaultAsync(b => b.Id == book.Id);
+            if (existingBook != null)
+            {
+                existingBook.Title = book.Title;
+                existingBook.Author = book.Author;
+                existingBook.Genre = book.Genre;
+                existingBook.Price = book.Price;
+                existingBook.PublishedYear = book.PublishedYear;
+                _context.Books.Update(existingBook);
+                await _context.SaveChangesAsync();
+                return Ok(existingBook);
+            }
+            return NotFound();
+        }
     }
 }
