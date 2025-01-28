@@ -17,10 +17,19 @@ namespace KonyvtarApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
+        public async Task<ActionResult<IEnumerable<Book>>> GetBooks(int oldalSzam = 1, int oldalDb = 10)
         {
-            return await _context.Books.ToListAsync();
+            if (oldalSzam <= 0) oldalSzam = 1;
+            if (oldalDb <= 0) oldalDb = 10;
+
+            var books = await _context.Books
+                .Skip((oldalSzam - 1) * oldalDb)
+                .Take(oldalDb)
+                .ToListAsync();
+
+            return Ok(books);
         }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Book>> GetBook(int id)
         {
